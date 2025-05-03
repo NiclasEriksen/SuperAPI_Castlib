@@ -14,7 +14,7 @@ local barOffsetY = 0
 local barAnchor = "TOP"
 local barAnchorParent = "BOTTOM"
 local barTexture = "Interface\\AddOns\\SuperAPI_Castlib\\t\\bar.tga"
-
+local barFont = "GameFontWhite"
 
 local iconWidth = 20
 local iconHeight = 20
@@ -92,7 +92,7 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 	end
 
 	if plate.castbar.text == nil then
-		plate.castbar.text = plate.castbar:CreateFontString(nil, "HIGH", "GameFontWhite")
+		plate.castbar.text = plate.castbar:CreateFontString(nil, "HIGH", barFont)
 		plate.castbar.text:SetPoint("CENTER", plate.castbar, "CENTER", 0, 0)
 		local font, size, opts = plate.castbar.text:GetFont()
 		plate.castbar.text:SetFont(font, size - 4, "THINOUTLINE")
@@ -206,7 +206,7 @@ function NameplateInterruptCast(unitGUID, spellname, spellicon)
 						end
 
 						if plate.castbar.text == nil then
-							plate.castbar.text = plate.castbar:CreateFontString(nil, "HIGH", "GameFontWhite")
+							plate.castbar.text = plate.castbar:CreateFontString(nil, "HIGH", barFont)
 							plate.castbar.text:SetPoint("CENTER", plate.castbar, "CENTER", 0, 0)
 							local font, size, opts = plate.castbar.text:GetFont()
 							plate.castbar.text:SetFont(font, size - 4, "THINOUTLINE")
