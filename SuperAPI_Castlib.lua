@@ -5,6 +5,8 @@ local frames
 local initialized = 0
 local parentcount = 0
 
+local sparkToggle = false
+
 local barWidth = 98
 local barHeight = 9
 
@@ -72,7 +74,7 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 	plate.castbar:SetBackdropColor(0, 0, 0, 1)
 	plate.castbar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
 
-	if plate.castbar.spark == nil then
+	if sparkToggle and plate.castbar.spark == nil then
 		plate.castbar.spark = plate.castbar:CreateTexture(nil, "OVERLAY")
 		plate.castbar.spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 		plate.castbar.spark:SetWidth(32)
@@ -124,7 +126,11 @@ function SuperAPI_NameplateUpdateAll(elapsed)
 					plate.castbar:SetMinMaxValues(unitCastInfo.start, unitCastInfo.start + unitCastInfo.timer)
 
 					plate.castbar:SetValue(GetTime())
-					local sparkPosition = min(max(plate.castbar:GetWidth() * (GetTime() - unitCastInfo.start) / unitCastInfo.timer, 0), plate.castbar:GetWidth())
+
+					local sparkPosition
+					if sparkToggle then
+						sparkPosition = min(max(plate.castbar:GetWidth() * (GetTime() - unitCastInfo.start) / unitCastInfo.timer, 0), plate.castbar:GetWidth())
+					end
 
 					local spellname, _, spellicon = SpellInfo(unitCastInfo.spell)
 					if not spellname then
@@ -152,10 +158,14 @@ function SuperAPI_NameplateUpdateAll(elapsed)
 						plate.castbar:SetStatusBarColor(0.5, 0.7, 1.0)
 						plate.castbar:SetMinMaxValues(unitCastInfo.start, unitCastInfo.start + unitCastInfo.timer)
 						plate.castbar:SetValue(unitCastInfo.start + unitCastInfo.timer - GetTime() + unitCastInfo.start)
-						sparkPosition = min(max(plate.castbar:GetWidth() * (unitCastInfo.start + unitCastInfo.timer - GetTime()) / unitCastInfo.timer, 0), plate.castbar:GetWidth())
+						if sparkToggle then
+							sparkPosition = min(max(plate.castbar:GetWidth() * (unitCastInfo.start + unitCastInfo.timer - GetTime()) / unitCastInfo.timer, 0), plate.castbar:GetWidth())
+						end
 						plate.castbar:SetAlpha(1 + unitCastInfo.start + unitCastInfo.timer - GetTime())
 					end
-					plate.castbar.spark:SetPoint("CENTER", plate.castbar, "LEFT", sparkPosition, 0);
+					if sparkToggle then
+						plate.castbar.spark:SetPoint("CENTER", plate.castbar, "LEFT", sparkPosition, 0);
+					end
 				end
 			end
 		end
@@ -178,7 +188,7 @@ function NameplateInterruptCast(unitGUID, spellname, spellicon)
 						plate.castbar:SetBackdropColor(0, 0, 0, 1)
 						plate.castbar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
 
-						if plate.castbar.spark == nil then
+						if sparkToggle and plate.castbar.spark == nil then
 							plate.castbar.spark = plate.castbar:CreateTexture(nil, "OVERLAY")
 							plate.castbar.spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 							plate.castbar.spark:SetWidth(32)
