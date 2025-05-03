@@ -13,6 +13,7 @@ local barOffsetX = 0
 local barOffsetY = 0
 local barAnchor = "TOP"
 local barAnchorParent = "BOTTOM"
+local barTexture = "Interface\\AddOns\\SuperAPI_Castlib\\t\\bar.tga"
 
 
 local iconWidth = 20
@@ -80,7 +81,7 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 	plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 	                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
 	plate.castbar:SetBackdropColor(0, 0, 0, 1)
-	plate.castbar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+	plate.castbar:SetStatusBarTexture(barTexture)
 
 	if sparkToggle and plate.castbar.spark == nil then
 		plate.castbar.spark = plate.castbar:CreateTexture(nil, "OVERLAY")
@@ -194,7 +195,7 @@ function NameplateInterruptCast(unitGUID, spellname, spellicon)
 						plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 						                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
 						plate.castbar:SetBackdropColor(0, 0, 0, 1)
-						plate.castbar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+						plate.castbar:SetStatusBarTexture(barTexture)
 
 						if sparkToggle and plate.castbar.spark == nil then
 							plate.castbar.spark = plate.castbar:CreateTexture(nil, "OVERLAY")
