@@ -8,6 +8,10 @@ local parentcount = 0
 local barWidth = 98
 local barHeight = 9
 
+
+local iconWidth = 20
+local iconHeight = 20
+
 function SuperAPI_Castlib_Load()
 	-- if client was not launched with the mod, shutdown
 	if not SetAutoloot then
@@ -87,8 +91,8 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 		plate.castbar.icon = plate.castbar:CreateTexture(nil, "BORDER")
 		plate.castbar.icon:ClearAllPoints()
 		plate.castbar.icon:SetPoint("TOPRIGHT", plate.castbar, "TOPLEFT")
-		plate.castbar.icon:SetWidth(12)
-		plate.castbar.icon:SetHeight(12)
+		plate.castbar.icon:SetWidth(iconWidth)
+		plate.castbar.icon:SetHeight(iconHeight)
 		plate.castbar.icon:Show()
 	end
 end
@@ -193,8 +197,8 @@ function NameplateInterruptCast(unitGUID, spellname, spellicon)
 							plate.castbar.icon = plate.castbar:CreateTexture(nil, "BORDER")
 							plate.castbar.icon:ClearAllPoints()
 							plate.castbar.icon:SetPoint("TOPRIGHT", plate.castbar, "TOPLEFT")
-							plate.castbar.icon:SetWidth(12)
-							plate.castbar.icon:SetHeight(12)
+							plate.castbar.icon:SetWidth(iconWidth)
+							plate.castbar.icon:SetHeight(iconHeight)
 							plate.castbar.icon:Show()
 						end
 					end
