@@ -6,6 +6,7 @@ local initialized = 0
 local parentcount = 0
 
 local barWidth = 98
+local barHeight = 9
 
 function SuperAPI_Castlib_Load()
 	-- if client was not launched with the mod, shutdown
@@ -60,7 +61,7 @@ end
 function SuperAPI_NameplateCastbarInitialize(plate)
 	plate.castbar = CreateFrame("StatusBar", "castbar", plate)
 	plate.castbar:SetWidth(barWidth)
-	plate.castbar:SetHeight(8)
+	plate.castbar:SetHeight(barHeight)
 	plate.castbar:SetPoint("TOPLEFT", plate, "BOTTOMLEFT", 12, 0)
 	plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 	                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
@@ -166,7 +167,7 @@ function NameplateInterruptCast(unitGUID, spellname, spellicon)
 					if plate.castbar == nil then
 						plate.castbar = CreateFrame("StatusBar", "castbar", plate)
 						plate.castbar:SetWidth(barWidth)
-						plate.castbar:SetHeight(8)
+						plate.castbar:SetHeight(barHeight)
 						plate.castbar:SetPoint("TOPLEFT", plate, "BOTTOMLEFT", 12, 0)
 						plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 						                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
