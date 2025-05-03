@@ -11,12 +11,16 @@ local barWidth = 98
 local barHeight = 9
 local barOffsetX = 0
 local barOffsetY = 0
+local barAnchor = "TOP"
+local barAnchorParent = "BOTTOM"
 
 
 local iconWidth = 20
 local iconHeight = 20
 local iconOffsetX = -4
 local iconOffsetY = 0
+local iconAnchor = "BOTTOMRIGHT"
+local iconAnchorParent = "BOTTOMLEFT"
 
 function SuperAPI_Castlib_Load()
 	-- if client was not launched with the mod, shutdown
@@ -72,7 +76,7 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 	plate.castbar = CreateFrame("StatusBar", "castbar", plate)
 	plate.castbar:SetWidth(barWidth)
 	plate.castbar:SetHeight(barHeight)
-	plate.castbar:SetPoint("TOPLEFT", plate, "BOTTOMLEFT", barOffsetX, barOffsetY)
+	plate.castbar:SetPoint(barAnchor, plate, barAnchorParent, barOffsetX, barOffsetY)
 	plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 	                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
 	plate.castbar:SetBackdropColor(0, 0, 0, 1)
@@ -96,7 +100,7 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 	if plate.castbar.icon == nil then
 		plate.castbar.icon = plate.castbar:CreateTexture(nil, "BORDER")
 		plate.castbar.icon:ClearAllPoints()
-		plate.castbar.icon:SetPoint("TOPRIGHT", plate.castbar, "TOPLEFT", iconOffsetX, iconOffsetY)
+		plate.castbar.icon:SetPoint(iconAnchor, plate.castbar, iconAnchorParent, iconOffsetX, iconOffsetY)
 		plate.castbar.icon:SetWidth(iconWidth)
 		plate.castbar.icon:SetHeight(iconHeight)
 		plate.castbar.icon:Show()
@@ -186,7 +190,7 @@ function NameplateInterruptCast(unitGUID, spellname, spellicon)
 						plate.castbar = CreateFrame("StatusBar", "castbar", plate)
 						plate.castbar:SetWidth(barWidth)
 						plate.castbar:SetHeight(barHeight)
-						plate.castbar:SetPoint("TOPLEFT", plate, "BOTTOMLEFT", barOffsetX, barOffsetY)
+						plate.castbar:SetPoint(barAnchor, plate, barAnchorParent, barOffsetX, barOffsetY)
 						plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 						                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
 						plate.castbar:SetBackdropColor(0, 0, 0, 1)
@@ -210,7 +214,7 @@ function NameplateInterruptCast(unitGUID, spellname, spellicon)
 						if plate.castbar.icon == nil then
 							plate.castbar.icon = plate.castbar:CreateTexture(nil, "BORDER")
 							plate.castbar.icon:ClearAllPoints()
-							plate.castbar.icon:SetPoint("TOPRIGHT", plate.castbar, "TOPLEFT", iconOffsetX, iconOffsetY)
+							plate.castbar.icon:SetPoint(iconAnchor, plate.castbar, iconAnchorParent, iconOffsetX, iconOffsetY)
 							plate.castbar.icon:SetWidth(iconWidth)
 							plate.castbar.icon:SetHeight(iconHeight)
 							plate.castbar.icon:Show()
