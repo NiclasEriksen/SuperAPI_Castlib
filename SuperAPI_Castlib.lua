@@ -15,6 +15,10 @@ local barAnchor = "TOP"
 local barAnchorParent = "BOTTOM"
 local barTexture = "Interface\\AddOns\\SuperAPI_Castlib\\t\\bar.tga"
 local barFont = "GameFontWhite"
+local barFontSize = 10
+local textOffsetX = 0
+local textOffsetY = 0
+local textAnchor = "CENTER"
 
 local iconWidth = 20
 local iconHeight = 20
@@ -22,6 +26,87 @@ local iconOffsetX = -4
 local iconOffsetY = 0
 local iconAnchor = "BOTTOMRIGHT"
 local iconAnchorParent = "BOTTOMLEFT"
+
+local testMode = false
+
+function SuperAPI_Castlib_ApplySettings()
+	if not SuperAPI_Castlib_Settings then return end
+	local s = SuperAPI_Castlib_Settings
+	barWidth = s.barWidth
+	barHeight = s.barHeight
+	barOffsetX = s.barOffsetX
+	barOffsetY = s.barOffsetY
+	barAnchor = s.barAnchor
+	barAnchorParent = s.barAnchorParent
+	iconWidth = s.iconSize
+	iconHeight = s.iconSize
+	iconOffsetX = s.iconOffsetX
+	iconOffsetY = s.iconOffsetY
+	iconAnchor = s.iconAnchor
+	iconAnchorParent = s.iconAnchorParent
+	sparkToggle = s.showSpark
+	barFont = s.barFont or "GameFontWhite"
+	barFontSize = s.barFontSize or 10
+	textOffsetX = s.textOffsetX or 0
+	textOffsetY = s.textOffsetY or 0
+	textAnchor = s.textAnchor or "CENTER"
+
+	-- Update existing nameplate bars if any
+	if frames then
+		for _, plate in ipairs(frames) do
+			if plate and plate.castbar then
+				plate.castbar:SetWidth(barWidth)
+				plate.castbar:SetHeight(barHeight)
+				plate.castbar:ClearAllPoints()
+				plate.castbar:SetPoint(barAnchor, plate, barAnchorParent, barOffsetX, barOffsetY)
+				if sparkToggle then
+					if plate.castbar.spark == nil then
+						plate.castbar.spark = plate.castbar:CreateTexture(nil, "OVERLAY")
+						plate.castbar.spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
+						plate.castbar.spark:SetWidth(32)
+						plate.castbar.spark:SetHeight(10)
+						plate.castbar.spark:SetBlendMode("ADD")
+					end
+					plate.castbar.spark:Show()
+				elseif plate.castbar.spark then
+					plate.castbar.spark:Hide()
+				end
+				if plate.castbar.icon then
+					plate.castbar.icon:SetWidth(iconWidth)
+					plate.castbar.icon:SetHeight(iconHeight)
+					plate.castbar.icon:ClearAllPoints()
+					plate.castbar.icon:SetPoint(iconAnchor, plate.castbar, iconAnchorParent, iconOffsetX, iconOffsetY)
+				end
+				if plate.castbar.text then
+					plate.castbar.text:ClearAllPoints()
+					plate.castbar.text:SetPoint(textAnchor, plate.castbar, textAnchor, textOffsetX, textOffsetY)
+					if barFont == "GameFontWhite" then
+						plate.castbar.text:SetFont("Fonts\\FRIZQT__.TTF", barFontSize, "THINOUTLINE")
+					else
+						plate.castbar.text:SetFont(barFont, barFontSize, "THINOUTLINE")
+					end
+				end
+				
+				-- Apply colors to active bar if it matches an event
+				local unitGUID = plate:GetName(1)
+				local unitCastInfo = SUPERAPI_SpellEvents[unitGUID]
+				if testMode then
+					plate.castbar:SetStatusBarColor(s.colorStart.r, s.colorStart.g, s.colorStart.b)
+				elseif unitCastInfo then
+					if unitCastInfo.event == "START" then
+						plate.castbar:SetStatusBarColor(s.colorStart.r, s.colorStart.g, s.colorStart.b)
+					elseif unitCastInfo.event == "CAST" then
+						plate.castbar:SetStatusBarColor(s.colorSuccess.r, s.colorSuccess.g, s.colorSuccess.b)
+					elseif unitCastInfo.event == "FAIL" then
+						plate.castbar:SetStatusBarColor(s.colorFail.r, s.colorFail.g, s.colorFail.b)
+					elseif unitCastInfo.event == "CHANNEL" then
+						plate.castbar:SetStatusBarColor(s.colorChannel.r, s.colorChannel.g, s.colorChannel.b)
+					end
+				end
+			end
+		end
+	end
+end
 
 function SuperAPI_Castlib_Load()
 	-- if client was not launched with the mod, shutdown
@@ -77,13 +162,14 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 	plate.castbar = CreateFrame("StatusBar", "castbar", plate)
 	plate.castbar:SetWidth(barWidth)
 	plate.castbar:SetHeight(barHeight)
+	plate.castbar:ClearAllPoints()
 	plate.castbar:SetPoint(barAnchor, plate, barAnchorParent, barOffsetX, barOffsetY)
 	plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
 	                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
 	plate.castbar:SetBackdropColor(0, 0, 0, 1)
 	plate.castbar:SetStatusBarTexture(barTexture)
 
-	if sparkToggle and plate.castbar.spark == nil then
+	if plate.castbar.spark == nil then
 		plate.castbar.spark = plate.castbar:CreateTexture(nil, "OVERLAY")
 		plate.castbar.spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 		plate.castbar.spark:SetWidth(32)
@@ -91,11 +177,21 @@ function SuperAPI_NameplateCastbarInitialize(plate)
 		plate.castbar.spark:SetBlendMode("ADD")
 	end
 
+	if sparkToggle then
+		plate.castbar.spark:Show()
+	else
+		plate.castbar.spark:Hide()
+	end
+
 	if plate.castbar.text == nil then
-		plate.castbar.text = plate.castbar:CreateFontString(nil, "HIGH", barFont)
-		plate.castbar.text:SetPoint("CENTER", plate.castbar, "CENTER", 0, 0)
-		local font, size, opts = plate.castbar.text:GetFont()
-		plate.castbar.text:SetFont(font, size - 4, "THINOUTLINE")
+		plate.castbar.text = plate.castbar:CreateFontString(nil, "HIGH", "GameFontHighlightSmall")
+		plate.castbar.text:ClearAllPoints()
+		plate.castbar.text:SetPoint(textAnchor, plate.castbar, textAnchor, textOffsetX, textOffsetY)
+		if barFont == "GameFontWhite" then
+			plate.castbar.text:SetFont("Fonts\\FRIZQT__.TTF", barFontSize, "THINOUTLINE")
+		else
+			plate.castbar.text:SetFont(barFont, barFontSize, "THINOUTLINE")
+		end
 	end
 
 	if plate.castbar.icon == nil then
@@ -116,6 +212,17 @@ function SuperAPI_NameplateUpdateFrames()
 	end
 end
 
+function SuperAPI_Castlib_SetTestMode(enabled)
+	testMode = enabled
+	if not enabled and frames then
+		for _, plate in ipairs(frames) do
+			if plate and plate.castbar then
+				plate.castbar:Hide()
+			end
+		end
+	end
+end
+
 function SuperAPI_NameplateUpdateAll(elapsed)
 	SuperAPI_NameplateUpdateFrames()
 
@@ -127,7 +234,24 @@ function SuperAPI_NameplateUpdateAll(elapsed)
 					SuperAPI_NameplateCastbarInitialize(plate)
 				end
 				local unitCastInfo = SUPERAPI_SpellEvents[unitGUID]
-				if not unitCastInfo or not SuperAPI_nameplatebars then
+
+				if testMode then
+					plate.castbar:Show()
+					plate.castbar:SetMinMaxValues(0, 100)
+					plate.castbar:SetValue(50)
+					local s = SuperAPI_Castlib_Settings
+					if s then
+						plate.castbar:SetStatusBarColor(s.colorStart.r, s.colorStart.g, s.colorStart.b)
+					else
+						plate.castbar:SetStatusBarColor(1.0, 0.7, 0.0)
+					end
+					plate.castbar.text:SetText("Test Casting")
+					plate.castbar.icon:SetTexture("Interface\\Icons\\Spell_Nature_HealingTouch")
+					plate.castbar:SetAlpha(1.0)
+					if plate.castbar.spark then
+						plate.castbar.spark:SetPoint("CENTER", plate.castbar, "LEFT", plate.castbar:GetWidth() / 2, 0);
+					end
+				elseif not unitCastInfo or not SuperAPI_nameplatebars then
 					plate.castbar:Hide()
 				else
 
@@ -153,18 +277,35 @@ function SuperAPI_NameplateUpdateAll(elapsed)
 					plate.castbar.icon:SetTexture(spellicon)
 					plate.castbar:SetAlpha(1 - GetTime() + unitCastInfo.start + unitCastInfo.timer)
 
+					local s = SuperAPI_Castlib_Settings
 					if unitCastInfo.event == "START" then
-						plate.castbar:SetStatusBarColor(1.0, 0.7, 0.0)
+						if s then
+							plate.castbar:SetStatusBarColor(s.colorStart.r, s.colorStart.g, s.colorStart.b)
+						else
+							plate.castbar:SetStatusBarColor(1.0, 0.7, 0.0)
+						end
 						plate.castbar:SetMinMaxValues(unitCastInfo.start, unitCastInfo.start + unitCastInfo.timer)
 					elseif unitCastInfo.event == "CAST" then
-						plate.castbar:SetStatusBarColor(0.0, 1.0, 0.0)
+						if s then
+							plate.castbar:SetStatusBarColor(s.colorSuccess.r, s.colorSuccess.g, s.colorSuccess.b)
+						else
+							plate.castbar:SetStatusBarColor(0.0, 1.0, 0.0)
+						end
 						plate.castbar:SetMinMaxValues(unitCastInfo.start - 1, unitCastInfo.start)
 					elseif unitCastInfo.event == "FAIL" then
-						plate.castbar:SetStatusBarColor(1.0, 0.0, 0.0)
+						if s then
+							plate.castbar:SetStatusBarColor(s.colorFail.r, s.colorFail.g, s.colorFail.b)
+						else
+							plate.castbar:SetStatusBarColor(1.0, 0.0, 0.0)
+						end
 						plate.castbar.text:SetText("INTERRUPTED")
 						plate.castbar:SetMinMaxValues(unitCastInfo.start - 1, unitCastInfo.start)
 					elseif unitCastInfo.event == "CHANNEL" then
-						plate.castbar:SetStatusBarColor(0.5, 0.7, 1.0)
+						if s then
+							plate.castbar:SetStatusBarColor(s.colorChannel.r, s.colorChannel.g, s.colorChannel.b)
+						else
+							plate.castbar:SetStatusBarColor(0.5, 0.7, 1.0)
+						end
 						plate.castbar:SetMinMaxValues(unitCastInfo.start, unitCastInfo.start + unitCastInfo.timer)
 						plate.castbar:SetValue(unitCastInfo.start + unitCastInfo.timer - GetTime() + unitCastInfo.start)
 						if sparkToggle then
@@ -182,47 +323,21 @@ function SuperAPI_NameplateUpdateAll(elapsed)
 end
 
 function NameplateInterruptCast(unitGUID, spellname, spellicon)
-	local frames = { WorldFrame:GetChildren() }
+	SuperAPI_NameplateUpdateFrames()
 	for i, plate in ipairs(frames) do
 		if plate then
 			if plate:IsShown() and plate:IsObjectType("Button") then
 				if plate:GetName(1) == unitGUID then
 					if plate.castbar == nil then
-						plate.castbar = CreateFrame("StatusBar", "castbar", plate)
-						plate.castbar:SetWidth(barWidth)
-						plate.castbar:SetHeight(barHeight)
-						plate.castbar:SetPoint(barAnchor, plate, barAnchorParent, barOffsetX, barOffsetY)
-						plate.castbar:SetBackdrop({ bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
-						                            insets = { left = -1, right = -1, top = -1, bottom = -1 } })
-						plate.castbar:SetBackdropColor(0, 0, 0, 1)
-						plate.castbar:SetStatusBarTexture(barTexture)
-
-						if sparkToggle and plate.castbar.spark == nil then
-							plate.castbar.spark = plate.castbar:CreateTexture(nil, "OVERLAY")
-							plate.castbar.spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
-							plate.castbar.spark:SetWidth(32)
-							plate.castbar.spark:SetHeight(32)
-							plate.castbar.spark:SetBlendMode("ADD")
-						end
-
-						if plate.castbar.text == nil then
-							plate.castbar.text = plate.castbar:CreateFontString(nil, "HIGH", barFont)
-							plate.castbar.text:SetPoint("CENTER", plate.castbar, "CENTER", 0, 0)
-							local font, size, opts = plate.castbar.text:GetFont()
-							plate.castbar.text:SetFont(font, size - 4, "THINOUTLINE")
-						end
-
-						if plate.castbar.icon == nil then
-							plate.castbar.icon = plate.castbar:CreateTexture(nil, "BORDER")
-							plate.castbar.icon:ClearAllPoints()
-							plate.castbar.icon:SetPoint(iconAnchor, plate.castbar, iconAnchorParent, iconOffsetX, iconOffsetY)
-							plate.castbar.icon:SetWidth(iconWidth)
-							plate.castbar.icon:SetHeight(iconHeight)
-							plate.castbar.icon:Show()
-						end
+						SuperAPI_NameplateCastbarInitialize(plate)
 					end
 					plate.castbar:Show()
-					plate.castbar:SetStatusBarColor(1.0, 0.0, 0.0)
+					local s = SuperAPI_Castlib_Settings
+					if s then
+						plate.castbar:SetStatusBarColor(s.colorFail.r, s.colorFail.g, s.colorFail.b)
+					else
+						plate.castbar:SetStatusBarColor(1.0, 0.0, 0.0)
+					end
 					plate.castbar:SetMinMaxValues(0, 1)
 					plate.castbar:SetValue(1)
 					plate.castbar:SetValue(GetTime())

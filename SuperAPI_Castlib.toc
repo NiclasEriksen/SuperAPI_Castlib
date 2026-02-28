@@ -3,6 +3,7 @@
 ## Notes: the companion compatibility addon: Casts library
 ## Author: balake
 ## Dependencies: SuperAPI
-## SavedVariables: SuperAPI_nameplatebars
+## SavedVariables: SuperAPI_nameplatebars, SuperAPI_Castlib_Settings
 
 SuperAPI_Castlib.xml
+SuperAPI_Castlib_UI.xml

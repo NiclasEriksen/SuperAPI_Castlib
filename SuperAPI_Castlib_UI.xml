@@ -1,0 +1,266 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+    <Script file="SuperAPI_Castlib_UI.lua"/>
+    
+    <Frame name="SuperAPI_Castlib_UI" parent="UIParent" hidden="true" movable="true" enableMouse="true" frameStrata="DIALOG">
+        <Size><AbsDimension x="520" y="520"/></Size>
+        <Anchors><Anchor point="CENTER"/></Anchors>
+        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+            <BackgroundInsets><AbsInset left="11" right="12" top="12" bottom="11"/></BackgroundInsets>
+            <TileSize><AbsValue val="32"/></TileSize>
+            <EdgeSize><AbsValue val="32"/></EdgeSize>
+        </Backdrop>
+        
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentTitle" inherits="GameFontNormal" text="SuperAPI Castlib Settings">
+                    <Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="-20"/></Offset></Anchor></Anchors>
+                </FontString>
+
+                <!-- Section: Bar Settings -->
+                <FontString name="$parentBarSectionHeader" inherits="GameFontNormalSmall" text="BAR SETTINGS">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-50"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentBarWidthLabel" inherits="GameFontHighlightSmall" text="Width">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-75"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentBarHeightLabel" inherits="GameFontHighlightSmall" text="Height">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="110" y="-75"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentBarHorizontalOffsetLabel" inherits="GameFontHighlightSmall" text="H-Offset">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-115"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentBarVerticalOffsetLabel" inherits="GameFontHighlightSmall" text="V-Offset">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="110" y="-115"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentShowSparkLabel" inherits="GameFontHighlightSmall" text="Show Spark">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-155"/></Offset></Anchor></Anchors>
+                </FontString>
+
+                <!-- Section: Icon Settings -->
+                <FontString name="$parentIconSectionHeader" inherits="GameFontNormalSmall" text="ICON SETTINGS">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-205"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentIconSizeLabel" inherits="GameFontHighlightSmall" text="Size">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-230"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentIconHorizontalOffsetLabel" inherits="GameFontHighlightSmall" text="H-Offset">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-270"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentIconVerticalOffsetLabel" inherits="GameFontHighlightSmall" text="V-Offset">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="110" y="-270"/></Offset></Anchor></Anchors>
+                </FontString>
+
+                <!-- Section: Anchors -->
+                <FontString name="$parentAnchorSectionHeader" inherits="GameFontNormalSmall" text="ANCHORS">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-50"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentBarAnchorLabel" inherits="GameFontHighlightSmall" text="Bar Anchor">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-75"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentBarAnchorParentLabel" inherits="GameFontHighlightSmall" text="Bar Anchor Parent">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-115"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentIconAnchorLabel" inherits="GameFontHighlightSmall" text="Icon Anchor">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-165"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentIconAnchorParentLabel" inherits="GameFontHighlightSmall" text="Icon Anchor Parent">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-205"/></Offset></Anchor></Anchors>
+                </FontString>
+
+                <!-- Section: Text -->
+                <FontString name="$parentTextSectionHeader" inherits="GameFontNormalSmall" text="TEXT">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-255"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentFontLabel" inherits="GameFontHighlightSmall" text="Bar Font">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-280"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentFontSizeLabel" inherits="GameFontHighlightSmall" text="Size">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="400" y="-280"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentTextHorizontalOffsetLabel" inherits="GameFontHighlightSmall" text="H-Offset">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-320"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentTextVerticalOffsetLabel" inherits="GameFontHighlightSmall" text="V-Offset">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="340" y="-320"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentTextAnchorLabel" inherits="GameFontHighlightSmall" text="Text Anchor">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-360"/></Offset></Anchor></Anchors>
+                </FontString>
+
+                <!-- Section: Colors -->
+                <FontString name="$parentColorSectionHeader" inherits="GameFontNormalSmall" text="COLORS">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-325"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentColorStartLabel" inherits="GameFontHighlightSmall" text="Casting">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="55" y="-350"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentColorSuccessLabel" inherits="GameFontHighlightSmall" text="Success">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="55" y="-380"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentColorFailLabel" inherits="GameFontHighlightSmall" text="Failed">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="55" y="-410"/></Offset></Anchor></Anchors>
+                </FontString>
+                <FontString name="$parentColorChannelLabel" inherits="GameFontHighlightSmall" text="Channeling">
+                    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="55" y="-440"/></Offset></Anchor></Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        
+        <Frames>
+            <!-- Bar Inputs -->
+            <EditBox name="$parentBarWidthInput" inherits="InputBoxTemplate" numeric="true" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-90"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <EditBox name="$parentBarHeightInput" inherits="InputBoxTemplate" numeric="true" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="110" y="-90"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <EditBox name="$parentBarHorizontalInput" inherits="InputBoxTemplate" numeric="false" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-130"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <EditBox name="$parentBarVerticalInput" inherits="InputBoxTemplate" numeric="false" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="110" y="-130"/></Offset></Anchor></Anchors>
+            </EditBox>
+
+            <!-- Icon Inputs -->
+            <EditBox name="$parentIconSizeInput" inherits="InputBoxTemplate" numeric="true" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-245"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <EditBox name="$parentIconHorizontalInput" inherits="InputBoxTemplate" numeric="false" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-285"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <EditBox name="$parentIconVerticalInput" inherits="InputBoxTemplate" numeric="false" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="110" y="-285"/></Offset></Anchor></Anchors>
+            </EditBox>
+
+            <!-- Anchor Dropdowns -->
+            <Frame name="$parentBarAnchorDropDown" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-90"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>UIDropDownMenu_Initialize(this, SuperAPI_Castlib_AnchorDropDown_Initialize);</OnLoad></Scripts>
+            </Frame>
+            <Frame name="$parentBarAnchorParentDropDown" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-130"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>UIDropDownMenu_Initialize(this, SuperAPI_Castlib_AnchorDropDown_Initialize);</OnLoad></Scripts>
+            </Frame>
+            <Frame name="$parentIconAnchorDropDown" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-180"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>UIDropDownMenu_Initialize(this, SuperAPI_Castlib_AnchorDropDown_Initialize);</OnLoad></Scripts>
+            </Frame>
+            <Frame name="$parentIconAnchorParentDropDown" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-220"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>UIDropDownMenu_Initialize(this, SuperAPI_Castlib_AnchorDropDown_Initialize);</OnLoad></Scripts>
+            </Frame>
+
+            <!-- Text Settings -->
+            <CheckButton name="$parentShowSparkCheckbox" inherits="OptionsCheckButtonTemplate">
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-170"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>getglobal(this:GetName().."Text"):SetText("");</OnLoad></Scripts>
+            </CheckButton>
+            <Frame name="$parentFontDropDown" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-295"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>UIDropDownMenu_Initialize(this, SuperAPI_Castlib_FontDropDown_Initialize);</OnLoad></Scripts>
+            </Frame>
+            <EditBox name="$parentFontSizeInput" inherits="InputBoxTemplate" numeric="true" autoFocus="false">
+                <Size><AbsDimension x="40" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="400" y="-295"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <EditBox name="$parentTextHorizontalInput" inherits="InputBoxTemplate" numeric="false" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="260" y="-335"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <EditBox name="$parentTextVerticalInput" inherits="InputBoxTemplate" numeric="false" autoFocus="false">
+                <Size><AbsDimension x="50" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="340" y="-335"/></Offset></Anchor></Anchors>
+            </EditBox>
+            <Frame name="$parentTextAnchorDropDown" inherits="UIDropDownMenuTemplate">
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="250" y="-375"/></Offset></Anchor></Anchors>
+                <Scripts><OnLoad>UIDropDownMenu_Initialize(this, SuperAPI_Castlib_AnchorDropDown_Initialize);</OnLoad></Scripts>
+            </Frame>
+
+            <!-- Color Swatches -->
+            <Button name="$parentColorStartButton">
+                <Size><AbsDimension x="20" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-345"/></Offset></Anchor></Anchors>
+                <Layers><Layer level="BACKGROUND">
+                    <Texture name="SuperAPI_Castlib_UIColorStartSwatchBG">
+                        <Size><AbsDimension x="18" y="18"/></Size>
+                        <Anchors><Anchor point="CENTER"/></Anchors>
+                        <Color r="1" g="1" b="1" a="1"/>
+                    </Texture>
+                </Layer></Layers>
+                <Scripts><OnClick>SuperAPI_Castlib_OpenColorPicker("START");</OnClick></Scripts>
+                <NormalTexture file="Interface\ChatFrame\ChatFrameColorSwatch"/>
+            </Button>
+            <Button name="$parentColorSuccessButton">
+                <Size><AbsDimension x="20" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-375"/></Offset></Anchor></Anchors>
+                <Layers><Layer level="BACKGROUND">
+                    <Texture name="SuperAPI_Castlib_UIColorSuccessSwatchBG">
+                        <Size><AbsDimension x="18" y="18"/></Size>
+                        <Anchors><Anchor point="CENTER"/></Anchors>
+                        <Color r="1" g="1" b="1" a="1"/>
+                    </Texture>
+                </Layer></Layers>
+                <Scripts><OnClick>SuperAPI_Castlib_OpenColorPicker("SUCCESS");</OnClick></Scripts>
+                <NormalTexture file="Interface\ChatFrame\ChatFrameColorSwatch"/>
+            </Button>
+            <Button name="$parentColorFailButton">
+                <Size><AbsDimension x="20" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-405"/></Offset></Anchor></Anchors>
+                <Layers><Layer level="BACKGROUND">
+                    <Texture name="SuperAPI_Castlib_UIColorFailSwatchBG">
+                        <Size><AbsDimension x="18" y="18"/></Size>
+                        <Anchors><Anchor point="CENTER"/></Anchors>
+                        <Color r="1" g="1" b="1" a="1"/>
+                    </Texture>
+                </Layer></Layers>
+                <Scripts><OnClick>SuperAPI_Castlib_OpenColorPicker("FAIL");</OnClick></Scripts>
+                <NormalTexture file="Interface\ChatFrame\ChatFrameColorSwatch"/>
+            </Button>
+            <Button name="$parentColorChannelButton">
+                <Size><AbsDimension x="20" y="20"/></Size>
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="30" y="-435"/></Offset></Anchor></Anchors>
+                <Layers><Layer level="BACKGROUND">
+                    <Texture name="SuperAPI_Castlib_UIColorChannelSwatchBG">
+                        <Size><AbsDimension x="18" y="18"/></Size>
+                        <Anchors><Anchor point="CENTER"/></Anchors>
+                        <Color r="1" g="1" b="1" a="1"/>
+                    </Texture>
+                </Layer></Layers>
+                <Scripts><OnClick>SuperAPI_Castlib_OpenColorPicker("CHANNEL");</OnClick></Scripts>
+                <NormalTexture file="Interface\ChatFrame\ChatFrameColorSwatch"/>
+            </Button>
+
+            <!-- Bottom Buttons -->
+            <Button name="$parentTestButton" inherits="UIPanelButtonTemplate" text="Test">
+                <Size><AbsDimension x="100" y="25"/></Size>
+                <Anchors><Anchor point="BOTTOMLEFT"><Offset><AbsDimension x="20" y="20"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>SuperAPI_Castlib_TestSettings();</OnClick></Scripts>
+            </Button>
+            <Button name="$parentApplyButton" inherits="UIPanelButtonTemplate" text="Apply">
+                <Size><AbsDimension x="100" y="25"/></Size>
+                <Anchors><Anchor point="BOTTOMLEFT"><Offset><AbsDimension x="130" y="20"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>SuperAPI_Castlib_SaveSettings();</OnClick></Scripts>
+            </Button>
+            <Button name="$parentCloseButton" inherits="UIPanelButtonTemplate" text="Close">
+                <Size><AbsDimension x="100" y="25"/></Size>
+                <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-20" y="20"/></Offset></Anchor></Anchors>
+                <Scripts><OnClick>SuperAPI_Castlib_CancelSettings();</OnClick></Scripts>
+            </Button>
+        </Frames>
+        
+        <Scripts>
+            <OnLoad>this:RegisterEvent("VARIABLES_LOADED");</OnLoad>
+            <OnEvent>if event == "VARIABLES_LOADED" then SuperAPI_Castlib_LoadSettings(); end</OnEvent>
+            <OnMouseDown>if arg1 == "LeftButton" then this:StartMoving(); end</OnMouseDown>
+            <OnMouseUp>if arg1 == "LeftButton" then this:StopMovingOrSizing(); end</OnMouseUp>
+            <OnHide>if testModeActive then SuperAPI_Castlib_TestSettings(); end</OnHide>
+        </Scripts>
+    </Frame>
+</Ui>
